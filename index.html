@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deshibyte by DGR | Bihar ki dhrohar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-bg: #3B0918; 
+            --secondary-bg: #2A040F;
+            --accent-gold: #D4AF37;
+            --accent-gold-hover: #F3E5AB;
+            --text-light: #FDFBF7;
+            --text-dark: #333;
+            --success-green: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-gold);
+        }
+
+        /* --- Navbar & Mobile Menu --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--secondary-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-container img {
+            height: 50px; width: 50px; border-radius: 50%;
+            border: 2px solid var(--accent-gold); object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 1.5rem; font-weight: 700;
+            font-family: 'Playfair Display', serif; color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex; gap: 20px; list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light); text-decoration: none;
+            font-size: 0.9rem; transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        .cart-icon {
+            cursor: pointer; background: var(--accent-gold);
+            color: var(--primary-bg); padding: 5px 15px;
+            border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 5px;
+        }
+
+        .hamburger {
+            display: none; cursor: pointer; color: var(--accent-gold); font-size: 1.5rem;
+        }
+
+        .mobile-menu {
+            display: none; flex-direction: column; background: var(--secondary-bg);
+            position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem 5%;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .mobile-menu a {
+            color: var(--text-light); text-decoration: none; padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 80vh;
+            background-image: linear-gradient(rgba(42, 4, 15, 0.7), rgba(42, 4, 15, 0.8)), url('https://i.ibb.co/V57nShN/Gemini-Generated-Image-1vgg3v1vgg3v1vgg.png');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.5rem; margin-bottom: 30px; font-style: italic; }
+
+        .shop-btn {
+            background-color: var(--accent-gold); color: var(--primary-bg);
+            border: none; padding: 15px 40px; font-size: 1.2rem;
+            font-family: 'Playfair Display', serif; font-weight: bold;
+            cursor: pointer; border-radius: 5px; transition: background 0.3s;
+        }
+        .shop-btn:hover { background-color: var(--accent-gold-hover); }
+
+        /* --- Products Section --- */
+        .section-padding { padding: 4rem 5%; }
+        .bg-primary { background-color: var(--primary-bg); }
+        .bg-secondary { background-color: var(--secondary-bg); }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; }
+
+        .carousel-container {
+            display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px;
+            scroll-snap-type: x mandatory; scrollbar-width: thin;
+            scrollbar-color: var(--accent-gold) var(--secondary-bg);
+        }
+
+        .product-card {
+            min-width: 280px; background-color: var(--secondary-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 10px;
+            padding: 20px; text-align: center; scroll-snap-align: start; flex: 0 0 auto;
+        }
+
+        .product-card img {
+            width: 100%; height: 200px; object-fit: cover; border-radius: 5px;
+            margin-bottom: 15px; cursor: pointer; transition: transform 0.3s;
+        }
+        .product-card img:hover { transform: scale(1.03); }
+
+        .product-title { font-size: 1.2rem; margin-bottom: 5px; }
+        .product-price { color: var(--accent-gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 10px; }
+        .product-details-link { color: #ccc; font-size: 0.8rem; cursor: pointer; text-decoration: underline; margin-bottom: 15px; display: inline-block; }
+
+        .add-to-cart-btn {
+            background: transparent; border: 2px solid var(--accent-gold);
+            color: var(--accent-gold); padding: 8px 20px; border-radius: 5px;
+            cursor: pointer; transition: all 0.3s; width: 100%; font-weight: bold;
+        }
+        .add-to-cart-btn:hover { background: var(--accent-gold); color: var(--primary-bg); }
+
+        /* --- Story & Founder Note --- */
+        .story-container {
+            display: flex; flex-wrap: wrap; gap: 30px;
+        }
+        .story-box {
+            flex: 1; min-width: 300px; padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* --- Testimonials --- */
+        .testimonial-card {
+            min-width: 300px; background-color: var(--primary-bg);
+            border: 1px dashed var(--accent-gold); border-radius: 10px;
+            padding: 20px; scroll-snap-align: start; flex: 0 0 auto;
+            font-style: italic; position: relative;
+        }
+        .testimonial-author {
+            display: block; margin-top: 15px; font-weight: bold; font-style: normal; color: var(--accent-gold);
+        }
+
+        /* --- Modals (Cart & Product Details) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; justify-content: center;
+            align-items: center; z-index: 2000; padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--text-light); color: var(--text-dark);
+            width: 100%; max-width: 550px; padding: 30px; border-radius: 10px;
+            position: relative; max-height: 90vh; overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
+            cursor: pointer; color: var(--text-dark);
+        }
+
+        /* Advanced Cart Styles */
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;
+        }
+        .cart-item-info { flex: 2; }
+        .cart-item-title { font-weight: 600; font-size: 1rem; }
+        .cart-item-price { color: #666; font-size: 0.9rem; }
+        
+        .cart-controls {
+            display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end;
+        }
+        .qty-btn {
+            background: #eee; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-weight: bold;
+        }
+        .qty-btn:hover { background: #ddd; }
+        .remove-btn { color: red; font-size: 0.8rem; cursor: pointer; border: none; background: none; text-decoration: underline; margin-top: 5px; }
+
+        .checkout-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .checkout-form input, .checkout-form textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Poppins', sans-serif;
+        }
+        .checkout-btn {
+            background: var(--success-green); color: white; border: none; padding: 12px;
+            font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #1A0208; padding: 3rem 5%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; font-size: 0.9rem;
+        }
+        .footer-col h3 { margin-bottom: 15px; font-size: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-col ul li a { color: var(--text-light); text-decoration: none; }
+        .footer-col ul li a:hover { color: var(--accent-gold); text-decoration: underline; }
+        .fssai-badge {
+            display: inline-block; margin-top: 15px; padding: 10px 15px; border: 1px solid var(--accent-gold); border-radius: 5px; font-weight: 600;
+        }
+
+        /* --- Floating WhatsApp --- */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--success-green);
+            color: #FFF; border-radius: 50px; padding: 12px 20px; font-size: 16px; font-weight: bold;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5); text-decoration: none; z-index: 1000;
+            display: flex; align-items: center; gap: 10px; transition: transform 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.05); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .logo-text { font-size: 1.2rem; }
+            .product-card { min-width: 240px; }
+            .cart-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .cart-controls { justify-content: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg" alt="Deshibyte Logo">
+            <span class="logo-text">Deshibyte by DGR</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="cart-icon" onclick="openModal('cartModal')">
+                🛒 <span id="cart-count-badge" style="background: white; color: var(--primary-bg); border-radius: 50%; padding: 2px 6px; font-size: 0.8rem;">0</span>
+            </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+        </div>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" onclick="toggleMobileMenu()">Home</a>
+            <a href="#story" onclick="toggleMobileMenu()">Our Story</a>
+            <a href="#products" onclick="toggleMobileMenu()">Products</a>
+            <a href="#reviews" onclick="toggleMobileMenu()">Reviews</a>
+            <a href="#footer" onclick="toggleMobileMenu()">Contact & Policies</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1>Authentic Bihari Snacks</h1>
+        <p>Bihar ki dhrohar</p>
+        <button class="shop-btn" onclick="scrollToElement('products')">Shop Now</button>
+    </header>
+
+    <section class="section-padding bg-primary" id="products">
+        <h2 class="section-title">Our Premium Selection</h2>
+        
+        <div class="carousel-container">
+            <div class="product-card">
+                <img src="https://ibb.co/LDZnVJDq"><img src="https://i.ibb.co/zW4Gq7WL/thekua-single-pack.jpg" alt="thekua-single-pack">
+                <h3 class="product-title">Thekua single pack</h3>
+                <p class="product-price">₹299</p>
+                <span class="product-details-link" onclick="openProductModal('Thekua Single Pack', 'Classic roasted black gram flattened and spiced to perfection. High in protein, zero trans-fat. Shelf life: 3 months.', 'Preservative Free, Vegan, High Protein')">View Ingredients & Details</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Thekua single pack', 299)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://ibb.co/gM3wV2tV"><img src="https://i.ibb.co/N6spSvWS/thekua-double-pack.jpg" alt="thekua-double-pack')">
+                <h3 class="product-title"Double pack</h3>
+                <p class="product-price">₹349</p>
+                <span class="product-details-link" onclick="openProductModal('Sattu Mix Premium', 'Pure roasted gram flour, finely milled. The traditional energy drink of Bihar. Great for digestion and cooling the body. Shelf life: 6 months.', '100% Pure Sattu, Gluten-Free')">View Ingredients & Details</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Sattu Mix Premium', 349)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://ibb.co/gMFVXv0M"><img src="https://i.ibb.co/PZzQbT2Z/maha-combo-pack.jpg" alt="maha-combo-pack')">
+                <h3 class="product-title"MAHA combo pack (500g)</h3>
+                <p class="product-price">₹399</p>
+                <span class="product-details-link" onclick="openProductModal('Traditional Thekua (500g)', 'The iconic sweet of Chhath Puja. Made with whole wheat flour, jaggery (gud), pure desi ghee, and fennel seeds. Baked to a perfect crisp. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee')">View Ingredients & Details</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Traditional Thekua (500g)', 399)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-secondary" id="story">
+        <h2 class="section-title">Bihar ki dhrohar</h2>
+        <div class="story-container">
+            <div class="story-box">
+                <h3>Taste of Tradition</h3>
+                <br>
+                <p>Bringing the authentic and forgotten flavors of traditional Bihar straight to your doorstep. We use pure ingredients, traditional recipes, and manufacture with deep love and hygiene. Every bite takes you on a nostalgic journey back to your roots.</p>
+                <br>
+                <ul style="list-style-position: inside; color: var(--accent-gold);">
+                    <li>✔ 100% Authentic Recipes</li>
+                    <li>✔ Premium Quality Ingredients</li>
+                    <li>✔ Hygienic Packaging</li>
+                </ul>
+            </div>
+            <div class="story-box" style="border-color: var(--accent-gold);">
+                <h3>A Note from the Founder</h3>
+                <br>
+                <p><em>"I started Deshibyte because I realized our rich, native Bihari snacks were getting lost in a world of highly processed junk food. I wanted people everywhere to experience the exact same pure Sattu and crunchy Thekua I grew up eating at my grandmother's house. Deshibyte isn't just a business; it's an effort to preserve our heritage on a plate."</em></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-primary" id="reviews">
+        <h2 class="section-title">What Our Family Says</h2>
+        <div class="carousel-container">
+            <div class="testimonial-card">
+                <p>"The Thekua tastes exactly like the ones made during Chhath Puja. Pure ghee flavor and the perfect crunch. Highly recommended!"</p>
+                <span class="testimonial-author">- Rahul S., Mumbai</span>
+            </div>
+            <div class="testimonial-card">
+                <p>"I've tried many Sattu brands, but Deshibyte's Sattu Mix is by far the finest and most authentic. My daily morning drink sorted."</p>
+                <span class="testimonial-author">- Neha V., Delhi</span>
+            </div>
+            <div class="testimonial-card">
+                <p>"Chana Jor Garam brought back so many childhood memories. Packaging was excellent and delivery was prompt."</p>
+                <span class="testimonial-author">- Amit K., Bangalore</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-col" style="flex: 2; min-width: 250px;">
+            <img src="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg" alt="Deshibyte Logo" style="height: 60px; border-radius:50%; margin-bottom:10px;">
+            <h3 style="margin-bottom: 5px;">Deshibyte by DGR</h3>
+            <p style="font-style: italic;">Bihar ki dhrohar</p>
+            
+            <div class="fssai-badge">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/FSSAI_logo.svg" alt="FSSAI" style="height: 25px; background: white; padding: 2px; border-radius: 3px; vertical-align: middle; margin-right: 10px;">
+                Lic. No. 23325060003669
+            </div>
+        </div>
+        <div class="footer-col" style="flex: 1; min-width: 150px;">
+            <h3>Policies</h3>
+            <ul>
+                <li><a href="#" onclick="alert('Shipping Details: We dispatch within 24 hours. Delivery takes 3-5 business days across India.')">Shipping & Delivery</a></li>
+                <li><a href="#" onclick="alert('Refund Policy: If your product arrives damaged, send us a photo on WhatsApp within 24 hours for a full replacement or refund.')">Refund Policy</a></li>
+                <li><a href="#" onclick="alert('Terms of Service: By ordering, you agree to our standard D2C e-commerce terms.')">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-col" style="flex: 1; min-width: 200px;">
+            <h3>Contact Info</h3>
+            <ul>
+                <li>📞 +91 93104 04279</li>
+                <li>✉️ desibyteorder@gmail.com</li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/919310404279" class="whatsapp-float" target="_blank">
+        💬 Chat / Support
+    </a>
+
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
+            <h2 style="color: var(--text-dark); border-bottom: 2px solid var(--accent-gold); padding-bottom: 10px;">Your Cart</h2>
+            
+            <div id="cartItemsContainer" style="margin: 20px 0;">
+                <p>Your cart is empty.</p>
+            </div>
+            
+            <h3 style="color: var(--text-dark); text-align: right; margin-bottom: 10px;">Total: ₹<span id="cartTotal">0</span></h3>
+            <p style="color: #666; font-size: 0.8rem; text-align: right; margin-bottom: 20px;">*Shipping calculated on WhatsApp</p>
+
+            <form class="checkout-form" id="orderForm" onsubmit="submitOrder(event)">
+                <input type="text" id="customerName" placeholder="Full Name" required>
+                <input type="tel" id="customerPhone" placeholder="Phone Number" required>
+                <textarea id="customerAddress" rows="3" placeholder="Complete Delivery Address with Pincode" required></textarea>
+                <button type="submit" class="checkout-btn">Place Order via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close-modal" onclick="closeModal('productModal')">&times;</span>
+            <h2 id="modalProductTitle" style="color: var(--text-dark); margin-bottom: 15px;">Product Name</h2>
+            <p id="modalProductDesc" style="color: #444; margin-bottom: 20px;">Description goes here.</p>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin-bottom: 20px;">
+                <h4 style="color: var(--primary-bg); margin-bottom: 5px;">Highlights:</h4>
+                <p id="modalProductHighlights" style="color: #333; font-weight: 500;">Highlights go here</p>
+            </div>
+            <button class="checkout-btn" style="width: 100%;" onclick="closeModal('productModal')">Got it</button>
+        </div>
+    </div>
+
+    <script>
+        // Utilities
+        function scrollToElement(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+
+        function openProductModal(title, desc, highlights) {
+            document.getElementById('modalProductTitle').innerText = title;
+            document.getElementById('modalProductDesc').innerText = desc;
+            document.getElementById('modalProductHighlights').innerText = highlights;
+            openModal('productModal');
+        }
+
+        // Close modals if clicked outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        // Advanced Cart Logic
+        let cart = [];
+
+        function addToCart(productName, price) {
+            // Check if item already exists in cart
+            let existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: productName, price: price, quantity: 1 });
+            }
+            
+            updateCartUI();
+            
+            // Temporary feedback
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Added!";
+            btn.style.background = "var(--success-green)";
+            btn.style.color = "white";
+            btn.style.borderColor = "var(--success-green)";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "transparent";
+                btn.style.color = "var(--accent-gold)";
+                btn.style.borderColor = "var(--accent-gold)";
+            }, 1000);
+        }
+
+        function changeQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                removeItem(index);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Calculate total items and price
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            cart.forEach(item => {
+                totalItems += item.quantity;
+                totalPrice += (item.price * item.quantity);
+            });
+
+            document.getElementById('cart-count-badge').innerText = totalItems;
+            document.getElementById('cartTotal').innerText = totalPrice;
+
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = '<p>Your cart is empty.</p>';
+            } else {
+                container.innerHTML = '';
+                cart.forEach((item, index) => {
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">₹${item.price} each</div>
+                                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                            </div>
+                            <div class="cart-controls">
+                                <button class="qty-btn" type="button" onclick="changeQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" type="button" onclick="changeQuantity(${index}, 1)">+</button>
+                            </div>
+                            <div style="font-weight: bold; width: 60px; text-align: right;">
+                                ₹${item.price * item.quantity}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // Checkout to WhatsApp
+        function submitOrder(event) {
+            event.preventDefault();
+            
+            if(cart.length === 0) {
+                alert("Please add items to your cart first.");
+                return;
+            }
+
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+
+            let total = 0;
+
+            let message = `*New Order from Deshibyte Website*%0A%0A`;
+            message += `*Customer Details:*%0A`;
+            message += `Name: ${name}%0A`;
+            message += `Phone: ${phone}%0A`;
+            message += `Address: ${address}%0A%0A`;
+            
+            message += `*Order Items:*%0A`;
+            cart.forEach((item, index) => {
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                message += `${index + 1}. ${item.name}%0A   Qty: ${item.quantity} x ₹${item.price} = ₹${itemTotal}%0A`;
+            });
+            
+            message += `%0A*Total Amount: ₹${total}*`;
+
+            const whatsappNumber = "919310404279";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            // Reset cart
+            cart = [];
+            updateCartUI();
+            closeModal('cartModal');
+            document.getElementById('orderForm').reset();
+        }
+    </script>
+</body>
+</html>
