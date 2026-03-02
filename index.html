@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deshibyte by DGR | Bihar ki dhrohar</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         /* CSS Variables */
         :root {
@@ -205,7 +206,7 @@
         .remove-btn { color: red; font-size: 0.8rem; cursor: pointer; border: none; background: none; text-decoration: underline; margin-top: 5px; }
 
         .checkout-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .checkout-form input, .checkout-form textarea {
+        .checkout-form input, .checkout-form textarea, .checkout-form select {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Poppins', sans-serif;
         }
         .checkout-btn {
@@ -234,6 +235,33 @@
             display: flex; align-items: center; gap: 10px; transition: transform 0.3s;
         }
         .whatsapp-float:hover { transform: scale(1.05); }
+
+        /* --- New Features CSS --- */
+        .feedback-form-container {
+            max-width: 600px; margin: 30px auto 0; padding: 25px;
+            background: var(--secondary-bg); border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px; text-align: left;
+        }
+        .feedback-form-container input, .feedback-form-container select, .feedback-form-container textarea {
+            width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;
+            border: 1px solid #ccc; font-family: 'Poppins', sans-serif; background: white; color: black;
+        }
+        .feedback-btn {
+            background: var(--accent-gold); color: var(--primary-bg); font-weight: bold;
+            border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;
+        }
+        .average-rating {
+            text-align: center; font-size: 1.2rem; margin-bottom: 20px; 
+            color: var(--accent-gold); font-weight: bold;
+        }
+        .cart-summary-line {
+            display: flex; justify-content: space-between; color: var(--text-dark); margin-bottom: 5px;
+        }
+        .cart-summary-total {
+            display: flex; justify-content: space-between; color: var(--text-dark); margin-top: 10px;
+            padding-top: 10px; border-top: 2px solid var(--accent-gold); font-weight: bold; font-size: 1.2rem;
+        }
+        .honeypot { display: none !important; }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -287,22 +315,22 @@
         
         <div class="carousel-container">
             <div class="product-card">
-                <img src="https://ibb.co/LDZnVJDq"><img src="https://i.ibb.co/zW4Gq7WL/thekua-single-pack.jpg" alt="thekua-single-pack">
-                <h3 class="product-title">Thekua single pack</h3>
+                <img src="https://ibb.co/LDZnVJDq"><img src="https://i.ibb.co/zW4Gq7WL/thekua-single-pack.jpg" alt="thekua-single-pack" onclick="openProductModal('Thekua', 'Classic roasted black gram flattened and spiced to perfection. High in protein, zero trans-fat. Shelf life: 3 months.', 'Preservative Free, Vegan, High Protein')">
+                <h3 class="product-title">Dry Fruits thekua</h3>
                 <p class="product-price">₹299</p>
-                <span class="product-details-link" onclick="openProductModal('Thekua Single Pack', 'Classic roasted black gram flattened and spiced to perfection. High in protein, zero trans-fat. Shelf life: 3 months.', 'Preservative Free, Vegan, High Protein')">View Ingredients & Details</span>
-                <button class="add-to-cart-btn" onclick="addToCart('Thekua single pack', 299)">Add to Cart</button>
+                <span class="product-details-link" onclick="openProductModal('Chana Jor Garam Double Pack', 'Classic roasted black gram flattened and spiced to perfection. High in protein, zero trans-fat. Shelf life: 3 months.', 'Preservative Free, Vegan, High Protein')">View Ingredients & Details</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Chana Jor Garam Double Pack', 299)">Add to Cart</button>
             </div>
             <div class="product-card">
-                <img src="https://ibb.co/gM3wV2tV"><img src="https://i.ibb.co/N6spSvWS/thekua-double-pack.jpg" alt="thekua-double-pack')">
-                <h3 class="product-title"Double pack</h3>
+                <img src="https://ibb.co/gM3wV2tV"><img src="https://i.ibb.co/N6spSvWS/thekua-double-pack.jpg" alt="thekua-double-pack" onclick="openProductModal('Sattu Mix Premium', 'Pure roasted gram flour, finely milled. The traditional energy drink of Bihar. Great for digestion and cooling the body. Shelf life: 6 months.', '100% Pure Sattu, Gluten-Free')">
+                <h3 class="product-title">Sattu Mix Premium</h3>
                 <p class="product-price">₹349</p>
                 <span class="product-details-link" onclick="openProductModal('Sattu Mix Premium', 'Pure roasted gram flour, finely milled. The traditional energy drink of Bihar. Great for digestion and cooling the body. Shelf life: 6 months.', '100% Pure Sattu, Gluten-Free')">View Ingredients & Details</span>
                 <button class="add-to-cart-btn" onclick="addToCart('Sattu Mix Premium', 349)">Add to Cart</button>
             </div>
             <div class="product-card">
-                <img src="https://ibb.co/gMFVXv0M"><img src="https://i.ibb.co/PZzQbT2Z/maha-combo-pack.jpg" alt="maha-combo-pack')">
-                <h3 class="product-title"MAHA combo pack (500g)</h3>
+                <img src="https://ibb.co/gMFVXv0M"><img src="https://i.ibb.co/PZzQbT2Z/maha-combo-pack.jpg" alt="maha-combo-pack" onclick="openProductModal('Traditional Thekua (500g)', 'The iconic sweet of Chhath Puja. Made with whole wheat flour, jaggery (gud), pure desi ghee, and fennel seeds. Baked to a perfect crisp. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee')">
+                <h3 class="product-title">Maha Combopack Thekua (750g)</h3>
                 <p class="product-price">₹399</p>
                 <span class="product-details-link" onclick="openProductModal('Traditional Thekua (500g)', 'The iconic sweet of Chhath Puja. Made with whole wheat flour, jaggery (gud), pure desi ghee, and fennel seeds. Baked to a perfect crisp. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee')">View Ingredients & Details</span>
                 <button class="add-to-cart-btn" onclick="addToCart('Traditional Thekua (500g)', 399)">Add to Cart</button>
@@ -334,19 +362,40 @@
 
     <section class="section-padding bg-primary" id="reviews">
         <h2 class="section-title">What Our Family Says</h2>
-        <div class="carousel-container">
+        
+        <div class="average-rating" id="averageRatingDisplay">
+            </div>
+
+        <div class="carousel-container" id="testimonialCarousel">
             <div class="testimonial-card">
                 <p>"The Thekua tastes exactly like the ones made during Chhath Puja. Pure ghee flavor and the perfect crunch. Highly recommended!"</p>
                 <span class="testimonial-author">- Rahul S., Mumbai</span>
+                <div style="color: gold; margin-top: 5px;">⭐⭐⭐⭐⭐</div>
             </div>
             <div class="testimonial-card">
                 <p>"I've tried many Sattu brands, but Deshibyte's Sattu Mix is by far the finest and most authentic. My daily morning drink sorted."</p>
                 <span class="testimonial-author">- Neha V., Delhi</span>
+                <div style="color: gold; margin-top: 5px;">⭐⭐⭐⭐⭐</div>
             </div>
             <div class="testimonial-card">
                 <p>"Chana Jor Garam brought back so many childhood memories. Packaging was excellent and delivery was prompt."</p>
                 <span class="testimonial-author">- Amit K., Bangalore</span>
+                <div style="color: gold; margin-top: 5px;">⭐⭐⭐⭐</div>
             </div>
+        </div>
+
+        <div class="feedback-form-container">
+            <h3 style="color: var(--accent-gold); margin-bottom: 15px;">Leave a Review</h3>
+            <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                <input type="text" id="fbName" placeholder="Your Name & City (e.g., Rohan, Patna)" required>
+                <select id="fbRating" required>
+                    <option value="5">⭐⭐⭐⭐⭐ (5 Stars - Excellent)</option>
+                    <option value="4">⭐⭐⭐⭐ (4 Stars - Good)</option>
+                    <option value="3">⭐⭐⭐ (3 Stars - Average)</option>
+                </select>
+                <textarea id="fbReview" rows="3" placeholder="Tell us about the taste, packaging, and delivery..." required></textarea>
+                <button type="submit" class="feedback-btn">Submit Review</button>
+            </form>
         </div>
     </section>
 
@@ -391,14 +440,22 @@
                 <p>Your cart is empty.</p>
             </div>
             
-            <h3 style="color: var(--text-dark); text-align: right; margin-bottom: 10px;">Total: ₹<span id="cartTotal">0</span></h3>
-            <p style="color: #666; font-size: 0.8rem; text-align: right; margin-bottom: 20px;">*Shipping calculated on WhatsApp</p>
+            <div id="cartSummary" style="display: none;">
+                <div class="cart-summary-line"><span>Subtotal:</span> <span>₹<span id="cartSubtotal">0</span></span></div>
+                <div class="cart-summary-line"><span>Shipping:</span> <span>₹<span id="cartShipping">0</span></span></div>
+                <div class="cart-summary-line"><span>GST (5%):</span> <span>₹<span id="cartGst">0</span></span></div>
+                <div class="cart-summary-total"><span>Final Payable:</span> <span>₹<span id="cartFinalTotal">0</span></span></div>
+            </div>
+            
+            <p id="freeShippingMsg" style="color: var(--success-green); font-size: 0.85rem; text-align: right; margin: 10px 0 20px; font-weight: bold;"></p>
 
             <form class="checkout-form" id="orderForm" onsubmit="submitOrder(event)">
+                <input type="text" id="botCheck" class="honeypot" tabindex="-1" autocomplete="off">
+                
                 <input type="text" id="customerName" placeholder="Full Name" required>
-                <input type="tel" id="customerPhone" placeholder="Phone Number" required>
+                <input type="tel" id="customerPhone" placeholder="Phone Number (10 Digits)" pattern="[0-9]{10}" title="Enter a valid 10-digit mobile number" required>
                 <textarea id="customerAddress" rows="3" placeholder="Complete Delivery Address with Pincode" required></textarea>
-                <button type="submit" class="checkout-btn">Place Order via WhatsApp</button>
+                <button type="submit" class="checkout-btn">Confirm Order & Download Invoice</button>
             </form>
         </div>
     </div>
@@ -417,6 +474,46 @@
     </div>
 
     <script>
+        /* --- 1. DYNAMIC RATING & FEEDBACK SYSTEM --- */
+        let ratings = [5, 5, 4]; // Matches the initial static reviews
+
+        function updateAverageRating() {
+            const sum = ratings.reduce((a, b) => a + b, 0);
+            const avg = (sum / ratings.length).toFixed(1);
+            document.getElementById('averageRatingDisplay').innerText = `⭐ ${avg} / 5 (${ratings.length} Reviews)`;
+        }
+
+        function submitFeedback(event) {
+            event.preventDefault();
+            const name = document.getElementById('fbName').value.trim();
+            const rating = parseInt(document.getElementById('fbRating').value);
+            const review = document.getElementById('fbReview').value.trim();
+
+            if (!name || !review) {
+                alert("Please fill out the form properly without empty spaces.");
+                return;
+            }
+
+            // Update data
+            ratings.push(rating);
+            updateAverageRating();
+            let stars = "⭐".repeat(rating);
+
+            // Inject into UI
+            const carousel = document.getElementById('testimonialCarousel');
+            const newReview = document.createElement('div');
+            newReview.className = 'testimonial-card';
+            newReview.innerHTML = `
+                <p>"${review}"</p>
+                <span class="testimonial-author">- ${name}</span>
+                <div style="color: gold; margin-top: 5px;">${stars}</div>
+            `;
+            carousel.insertBefore(newReview, carousel.firstChild);
+
+            alert("Thank you! Your review has been added to our family wall.");
+            document.getElementById('feedbackForm').reset();
+        }
+
         // Utilities
         function scrollToElement(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
@@ -444,11 +541,12 @@
             }
         }
 
-        // Advanced Cart Logic
+        /* --- 2. ADVANCED CART LOGIC (SHIPPING & GST) --- */
         let cart = [];
+        let currentSubtotal = 0; let currentShipping = 0;
+        let currentGst = 0; let currentTotal = 0;
 
         function addToCart(productName, price) {
-            // Check if item already exists in cart
             let existingItem = cart.find(item => item.name === productName);
             
             if (existingItem) {
@@ -459,7 +557,6 @@
             
             updateCartUI();
             
-            // Temporary feedback
             const btn = event.target;
             const originalText = btn.innerText;
             btn.innerText = "Added!";
@@ -489,21 +586,21 @@
         }
 
         function updateCartUI() {
-            // Calculate total items and price
-            let totalItems = 0;
-            let totalPrice = 0;
-            
+            let totalItems = 0; currentSubtotal = 0;
             cart.forEach(item => {
                 totalItems += item.quantity;
-                totalPrice += (item.price * item.quantity);
+                currentSubtotal += (item.price * item.quantity);
             });
 
             document.getElementById('cart-count-badge').innerText = totalItems;
-            document.getElementById('cartTotal').innerText = totalPrice;
 
             const container = document.getElementById('cartItemsContainer');
+            const summary = document.getElementById('cartSummary');
+            
             if (cart.length === 0) {
                 container.innerHTML = '<p>Your cart is empty.</p>';
+                summary.style.display = 'none';
+                document.getElementById('freeShippingMsg').innerText = '';
             } else {
                 container.innerHTML = '';
                 cart.forEach((item, index) => {
@@ -525,50 +622,147 @@
                         </div>
                     `;
                 });
+
+                // Calculate Finances
+                currentShipping = currentSubtotal < 499 ? 50 : 0;
+                currentGst = parseFloat((currentSubtotal * 0.05).toFixed(2));
+                currentTotal = Math.round(currentSubtotal + currentShipping + currentGst);
+
+                // Update DOM
+                document.getElementById('cartSubtotal').innerText = currentSubtotal;
+                document.getElementById('cartShipping').innerText = currentShipping;
+                document.getElementById('cartGst').innerText = currentGst;
+                document.getElementById('cartFinalTotal').innerText = currentTotal;
+                summary.style.display = 'block';
+
+                // Shipping Tracker
+                let shipMsg = document.getElementById('freeShippingMsg');
+                if(currentSubtotal < 499) {
+                    let needed = 499 - currentSubtotal;
+                    shipMsg.innerText = `Add ₹${needed} more for FREE Shipping!`;
+                    shipMsg.style.color = '#e67e22'; // Orange warning
+                } else {
+                    shipMsg.innerText = `🎉 You've unlocked FREE Shipping!`;
+                    shipMsg.style.color = 'var(--success-green)';
+                }
             }
         }
 
-        // Checkout to WhatsApp
+        /* --- 3. INVOICE GENERATOR (jsPDF) --- */
+        function generatePDF(details) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Header
+            doc.setFontSize(22); doc.setTextColor(59, 9, 24);
+            doc.text("Deshibyte by DGR", 20, 20);
+            
+            doc.setFontSize(10); doc.setTextColor(100);
+            doc.text("TAX INVOICE", 170, 20);
+            doc.text("Bihar ki dhrohar | FSSAI: 23325060003669", 20, 28);
+            doc.line(20, 35, 190, 35);
+
+            // Customer details
+            doc.setFontSize(12); doc.setTextColor(0);
+            doc.text("Billed To:", 20, 45);
+            doc.setFontSize(10);
+            doc.text(`Name: ${details.name}`, 20, 52);
+            doc.text(`Phone: ${details.phone}`, 20, 58);
+            doc.text(doc.splitTextToSize(`Address: ${details.address}`, 80), 20, 64);
+            doc.line(20, 80, 190, 80);
+
+            // Table Header
+            doc.setFont("helvetica", "bold");
+            doc.text("Item", 20, 90); doc.text("Qty", 120, 90); doc.text("Price", 140, 90); doc.text("Total", 170, 90);
+            doc.line(20, 95, 190, 95);
+
+            // Items
+            doc.setFont("helvetica", "normal");
+            let y = 105;
+            cart.forEach((item, i) => {
+                doc.text(`${i + 1}. ${item.name}`, 20, y);
+                doc.text(`${item.quantity}`, 122, y);
+                doc.text(`Rs. ${item.price}`, 140, y);
+                doc.text(`Rs. ${item.price * item.quantity}`, 170, y);
+                y += 10;
+            });
+
+            // Totals
+            doc.line(20, y, 190, y); y += 10;
+            doc.text(`Subtotal:`, 140, y); doc.text(`Rs. ${currentSubtotal}`, 170, y); y += 8;
+            doc.text(`Shipping:`, 140, y); doc.text(`Rs. ${currentShipping}`, 170, y); y += 8;
+            doc.text(`GST (5%):`, 140, y); doc.text(`Rs. ${currentGst}`, 170, y); y += 10;
+            
+            doc.setFont("helvetica", "bold");
+            doc.text(`Final Payable:`, 140, y); doc.text(`Rs. ${currentTotal}`, 170, y);
+            
+            doc.setFont("helvetica", "italic"); doc.setFontSize(10);
+            doc.text("Thank you for choosing authentic taste! - Deshibyte", 105, 280, null, null, "center");
+
+            doc.save(`Deshibyte_Invoice_${details.phone}.pdf`);
+        }
+
+        /* --- 4. SECURE CHECKOUT --- */
         function submitOrder(event) {
             event.preventDefault();
             
+            // Honeypot Bot Trap
+            if(document.getElementById('botCheck').value !== "") return; 
+
             if(cart.length === 0) {
-                alert("Please add items to your cart first.");
-                return;
+                alert("Please add items to your cart first."); return;
             }
 
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const address = document.getElementById('customerAddress').value;
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const address = document.getElementById('customerAddress').value.trim();
 
-            let total = 0;
+            if(!name || !phone || !address) {
+                alert("No empty spaces allowed. Please fill all fields."); return;
+            }
 
-            let message = `*New Order from Deshibyte Website*%0A%0A`;
-            message += `*Customer Details:*%0A`;
-            message += `Name: ${name}%0A`;
-            message += `Phone: ${phone}%0A`;
-            message += `Address: ${address}%0A%0A`;
-            
-            message += `*Order Items:*%0A`;
+            const phoneRegex = /^[0-9]{10}$/;
+            if(!phoneRegex.test(phone)) {
+                alert("Please enter a valid 10-digit mobile number."); return;
+            }
+
+            // Generate the PDF
+            generatePDF({ name, phone, address });
+
+            // Format Professional Invoice for WhatsApp
+            let message = `*🧾 TAX INVOICE - DESHIBYTE BY DGR*%0A`;
+            message += `_Bihar ki dhrohar_%0A`;
+            message += `-----------------------------------%0A%0A`;
+            message += `*👤 CUSTOMER DETAILS:*%0A`;
+            message += `*Name:* ${name}%0A`;
+            message += `*Phone:* ${phone}%0A`;
+            message += `*Address:* ${address}%0A%0A`;
+            message += `*🛒 ORDER:*%0A`;
             cart.forEach((item, index) => {
-                let itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                message += `${index + 1}. ${item.name}%0A   Qty: ${item.quantity} x ₹${item.price} = ₹${itemTotal}%0A`;
+                message += `${index + 1}. *${item.name}*%0A   Qty: ${item.quantity} x ₹${item.price} = ₹${item.price * item.quantity}%0A`;
             });
-            
-            message += `%0A*Total Amount: ₹${total}*`;
+            message += `%0A-----------------------------------%0A`;
+            message += `Subtotal: ₹${currentSubtotal}%0A`;
+            message += `Shipping: ₹${currentShipping}%0A`;
+            message += `GST (5%): ₹${currentGst}%0A`;
+            message += `-----------------------------------%0A`;
+            message += `*💰 FINAL PAYABLE: ₹${currentTotal}*%0A`;
+            message += `-----------------------------------%0A`;
 
-            const whatsappNumber = "919310404279";
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+            // Open WhatsApp
+            window.open(`https://wa.me/919310404279?text=${message}`, '_blank');
             
-            window.open(whatsappURL, '_blank');
-            
-            // Reset cart
+            // Reset
             cart = [];
             updateCartUI();
             closeModal('cartModal');
             document.getElementById('orderForm').reset();
+            alert("Order Confirmed! Your PDF invoice is downloading and WhatsApp is opening.");
         }
+
+        // Initialize Average Rating on Page Load
+        updateAverageRating();
+
     </script>
 </body>
 </html>
