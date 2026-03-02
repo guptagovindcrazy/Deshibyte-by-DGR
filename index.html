@@ -131,10 +131,10 @@
             padding: 20px; text-align: center; scroll-snap-align: start; flex: 0 0 auto;
         }
 
-        .product-card img {
-            width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+       .product-card img {
+    width: 100%;
+    height: auto;        /* keeps original ratio */
+    object-fit: contain; /* shows full image */
     border-radius: 5px;
     margin-bottom: 15px;
     cursor: pointer;
