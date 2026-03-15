@@ -3,351 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Authentic Bihari snacks made with pure ingredients - Thekua, Sattu, and traditional Bihar delicacies. Order online with free shipping on orders above ₹499.">
+    <meta name="keywords" content="Bihari snacks, Thekua, Sattu, traditional Indian snacks, Bihar food, Chhath Puja sweets">
+    <meta name="author" content="Deshibyte by DGR">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Deshibyte by DGR - Authentic Bihari Snacks">
+    <meta property="og:description" content="Bihar ki dhrohar - Experience authentic flavors of Bihar delivered to your doorstep">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#3B0918">
+    
     <title>Deshibyte by DGR | Bihar ki dhrohar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        /* CSS Variables */
-        :root {
-            --primary-bg: #3B0918; 
-            --secondary-bg: #2A040F;
-            --accent-gold: #D4AF37;
-            --accent-gold-hover: #F3E5AB;
-            --text-light: #FDFBF7;
-            --text-dark: #333;
-            --success-green: #25d366;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--accent-gold);
-        }
-
-        /* --- Navbar & Mobile Menu --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background-color: var(--secondary-bg);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-container img {
-            height: 50px; width: 50px; border-radius: 50%;
-            border: 2px solid var(--accent-gold); object-fit: cover;
-        }
-
-        .logo-text {
-            font-size: 1.5rem; font-weight: 700;
-            font-family: 'Playfair Display', serif; color: var(--accent-gold);
-        }
-
-        .nav-links {
-            display: flex; gap: 20px; list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-light); text-decoration: none;
-            font-size: 0.9rem; transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover { color: var(--accent-gold); }
-
-        .cart-icon {
-            cursor: pointer; background: var(--accent-gold);
-            color: var(--primary-bg); padding: 5px 15px;
-            border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 5px;
-        }
-
-        .hamburger {
-            display: none; cursor: pointer; color: var(--accent-gold); font-size: 1.5rem;
-        }
-
-        .mobile-menu {
-            display: none; flex-direction: column; background: var(--secondary-bg);
-            position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem 5%;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .mobile-menu a {
-            color: var(--text-light); text-decoration: none; padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            height: 80vh;
-            background-image: linear-gradient(rgba(42, 4, 15, 0.7), rgba(42, 4, 15, 0.8)), url('https://i.ibb.co/V57nShN/Gemini-Generated-Image-1vgg3v1vgg3v1vgg.png');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; padding: 0 20px;
-        }
-
-        .hero h1 { font-size: 4rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero p { font-size: 1.5rem; margin-bottom: 30px; font-style: italic; }
-
-        .shop-btn {
-            background-color: var(--accent-gold); color: var(--primary-bg);
-            border: none; padding: 15px 40px; font-size: 1.2rem;
-            font-family: 'Playfair Display', serif; font-weight: bold;
-            cursor: pointer; border-radius: 5px; transition: background 0.3s;
-        }
-        .shop-btn:hover { background-color: var(--accent-gold-hover); }
-
-        /* --- Products Section --- */
-        .section-padding { padding: 4rem 5%; }
-        .bg-primary { background-color: var(--primary-bg); }
-        .bg-secondary { background-color: var(--secondary-bg); }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; }
-
-        .carousel-container {
-            display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px;
-            scroll-snap-type: x mandatory; scrollbar-width: thin;
-            scrollbar-color: var(--accent-gold) var(--secondary-bg);
-        }
-
-        .product-card {
-            min-width: 280px; background-color: var(--secondary-bg);
-            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 10px;
-            padding: 20px; text-align: center; scroll-snap-align: start; flex: 0 0 auto;
-        }
-
-       .product-card img {
-    width: 100%;
-    height: auto;        /* keeps original ratio */
-    object-fit: contain; /* shows full image */
-    border-radius: 5px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-        }
-        .product-card img:hover { transform: scale(1.03); }
-
-        .product-title { font-size: 1.2rem; margin-bottom: 5px; }
-        .product-price { color: var(--accent-gold); font-weight: 600; font-size: 1.1rem; margin-bottom: 10px; }
-        .product-details-link { color: #ccc; font-size: 0.8rem; cursor: pointer; text-decoration: underline; margin-bottom: 15px; display: inline-block; }
-
-        .add-to-cart-btn {
-            background: transparent; border: 2px solid var(--accent-gold);
-            color: var(--accent-gold); padding: 8px 20px; border-radius: 5px;
-            cursor: pointer; transition: all 0.3s; width: 100%; font-weight: bold;
-        }
-        .add-to-cart-btn:hover { background: var(--accent-gold); color: var(--primary-bg); }
-
-        /* --- Story & Founder Note --- */
-        .story-container {
-            display: flex; flex-wrap: wrap; gap: 30px;
-        }
-        .story-box {
-            flex: 1; min-width: 300px; padding: 30px;
-            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px;
-            background: rgba(0,0,0,0.2);
-        }
-
-        /* --- Testimonials --- */
-        .testimonial-card {
-            min-width: 300px; background-color: var(--primary-bg);
-            border: 1px dashed var(--accent-gold); border-radius: 10px;
-            padding: 20px; scroll-snap-align: start; flex: 0 0 auto;
-            font-style: italic; position: relative;
-        }
-        .testimonial-author {
-            display: block; margin-top: 15px; font-weight: bold; font-style: normal; color: var(--accent-gold);
-        }
-
-        /* --- Modals (Cart & Product Details) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); display: none; justify-content: center;
-            align-items: center; z-index: 2000; padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--text-light); color: var(--text-dark);
-            width: 100%; max-width: 550px; padding: 30px; border-radius: 10px;
-            position: relative; max-height: 90vh; overflow-y: auto;
-        }
-
-        .close-modal {
-            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
-            cursor: pointer; color: var(--text-dark);
-        }
-
-        /* Advanced Cart Styles */
-        .cart-item {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;
-        }
-        .cart-item-info { flex: 2; }
-        .cart-item-title { font-weight: 600; font-size: 1rem; }
-        .cart-item-price { color: #666; font-size: 0.9rem; }
-        
-        .cart-controls {
-            display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end;
-        }
-        .qty-btn {
-            background: #eee; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-weight: bold;
-        }
-        .qty-btn:hover { background: #ddd; }
-        .remove-btn { color: red; font-size: 0.8rem; cursor: pointer; border: none; background: none; text-decoration: underline; margin-top: 5px; }
-
-        .checkout-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .checkout-form input, .checkout-form textarea, .checkout-form select {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: 'Poppins', sans-serif;
-        }
-        .checkout-btn {
-            background: var(--success-green); color: white; border: none; padding: 12px;
-            font-size: 1rem; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background-color: #1A0208; padding: 3rem 5%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; font-size: 0.9rem;
-        }
-        .footer-col h3 { margin-bottom: 15px; font-size: 1.2rem; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 8px; }
-        .footer-col ul li a { color: var(--text-light); text-decoration: none; }
-        .footer-col ul li a:hover { color: var(--accent-gold); text-decoration: underline; }
-        .fssai-badge {
-            display: inline-block; margin-top: 15px; padding: 10px 15px; border: 1px solid var(--accent-gold); border-radius: 5px; font-weight: 600;
-        }
-
-        /* --- Floating WhatsApp --- */
-        .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px; background-color: var(--success-green);
-            color: #FFF; border-radius: 50px; padding: 12px 20px; font-size: 16px; font-weight: bold;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.5); text-decoration: none; z-index: 1000;
-            display: flex; align-items: center; gap: 10px; transition: transform 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.05); }
-
-        /* --- New Features CSS --- */
-        .feedback-form-container {
-            max-width: 600px; margin: 30px auto 0; padding: 25px;
-            background: var(--secondary-bg); border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 10px; text-align: left;
-        }
-        .feedback-form-container input, .feedback-form-container select, .feedback-form-container textarea {
-            width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;
-            border: 1px solid #ccc; font-family: 'Poppins', sans-serif; background: white; color: black;
-        }
-        .feedback-btn {
-            background: var(--accent-gold); color: var(--primary-bg); font-weight: bold;
-            border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;
-        }
-        .average-rating {
-            text-align: center; font-size: 1.2rem; margin-bottom: 20px; 
-            color: var(--accent-gold); font-weight: bold;
-        }
-        .cart-summary-line {
-            display: flex; justify-content: space-between; color: var(--text-dark); margin-bottom: 5px;
-        }
-        .cart-summary-total {
-            display: flex; justify-content: space-between; color: var(--text-dark); margin-top: 10px;
-            padding-top: 10px; border-top: 2px solid var(--accent-gold); font-weight: bold; font-size: 1.2rem;
-        }
-        .honeypot { display: none !important; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            .hamburger { display: block; }
-            .logo-text { font-size: 1.2rem; }
-            .product-card { min-width: 240px; }
-            .cart-item { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .cart-controls { justify-content: flex-start; }
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <nav>
-        <div class="logo-container">
-            <img src="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg" alt="Deshibyte Logo">
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="logo-container" onclick="scrollToElement('home')" role="button" tabindex="0" aria-label="Go to homepage">
+            <img src="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg" alt="Deshibyte by DGR logo" loading="eager" width="50" height="50">
             <span class="logo-text">Deshibyte by DGR</span>
         </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#story">Our Story</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#reviews">Reviews</a></li>
+        <ul class="nav-links" role="menubar">
+            <li role="none"><a href="#home" role="menuitem">Home</a></li>
+            <li role="none"><a href="#story" role="menuitem">Our Story</a></li>
+            <li role="none"><a href="#products" role="menuitem">Products</a></li>
+            <li role="none"><a href="#reviews" role="menuitem">Reviews</a></li>
         </ul>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div class="cart-icon" onclick="openModal('cartModal')">
-                🛒 <span id="cart-count-badge" style="background: white; color: var(--primary-bg); border-radius: 50%; padding: 2px 6px; font-size: 0.8rem;">0</span>
-            </div>
-            <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+        <div class="nav-actions">
+            <button class="cart-icon" onclick="openModal('cartModal')" aria-label="Open shopping cart">
+                🛒 <span id="cart-count-badge" class="cart-badge">0</span>
+            </button>
+            <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false">☰</button>
         </div>
         
-        <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
             <a href="#home" onclick="toggleMobileMenu()">Home</a>
             <a href="#story" onclick="toggleMobileMenu()">Our Story</a>
             <a href="#products" onclick="toggleMobileMenu()">Products</a>
             <a href="#reviews" onclick="toggleMobileMenu()">Reviews</a>
             <a href="#footer" onclick="toggleMobileMenu()">Contact & Policies</a>
-        </div>
+        </nav>
     </nav>
 
-    <header class="hero" id="home">
-        <h1>Authentic Bihari Snacks</h1>
-        <p>Bihar ki dhrohar</p>
-        <button class="shop-btn" onclick="scrollToElement('products')">Shop Now</button>
+    <header class="hero" id="home" role="banner">
+        <div class="hero-content">
+            <h1>Authentic Bihari Snacks</h1>
+            <p>Bihar ki dhrohar</p>
+            <button class="shop-btn" onclick="scrollToElement('products')" aria-label="Browse our products">
+                Shop Now
+            </button>
+        </div>
     </header>
 
     <section class="section-padding bg-primary" id="products">
         <h2 class="section-title">Our Premium Selection</h2>
         
         <div class="carousel-container">
-            <div class="product-card">
-                <img src="https://ibb.co/LDZnVJDq"><img src="https://ibb.co/3mg8MYxN"><img src="https://i.ibb.co/PGqb9z2h/thekua-single-pack.jpg" alt="thekua-single-pack" onclick="openProductModal('Thekua', 'Classic roasted black gram flattened and spiced to perfection. High in protein, zero trans-fat. Shelf life: 3 months.', 'Preservative Free, Vegan, High Protein')">
-                <h3 class="product-title">Dry Fruits thekua</h3>
+            <div class="product-card reveal">
+                <img src="https://i.ibb.co/PGqb9z2h/thekua-single-pack.jpg" alt="Dry Fruits Thekua - Traditional Bihari snack" loading="lazy" onclick="openProductModal('Dry Fruits Thekua', 'Traditional Bihari thekua enriched with dry fruits for a richer taste and crunch. Shelf life: 3 weeks.', 'Made in Pure Ghee, No Refined Sugar, Festive Favorite')" role="button" tabindex="0">
+                <h3 class="product-title">Dry Fruits Thekua</h3>
                 <p class="product-price">₹299</p>
-                <span class="product-details-link" onclick="openProductModal('Chana Jor Garam Double Pack', 'Classic roasted black gram flattened and spiced to perfection. High in protein, zero trans-fat. Shelf life: 3 months.', 'Preservative Free, Vegan, High Protein')">View Ingredients & Details</span>
-                <button class="add-to-cart-btn" onclick="addToCart('Chana Jor Garam Double Pack', 299)">Add to Cart</button>
+                <button class="product-details-link" onclick="openProductModal('Dry Fruits Thekua', 'Traditional Bihari thekua enriched with dry fruits for a richer taste and crunch. Shelf life: 3 weeks.', 'Made in Pure Ghee, No Refined Sugar, Festive Favorite')" aria-label="View ingredients and details for Dry Fruits Thekua">View Ingredients & Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Dry Fruits Thekua', 299, this)" aria-label="Add Dry Fruits Thekua to cart">
+                    <span class="btn-text">Add to Cart</span>
+                    <span class="btn-loader" style="display: none;">⏳</span>
+                </button>
             </div>
-            <div class="product-card">
-                <img src="https://ibb.co/gM3wV2tV"><img src="https://ibb.co/9mjGpzBM"><img src="https://i.ibb.co/j9FH8Bqp/thekua-double-pack.jpg" alt="thekua-double-pack" onclick="openProductModal('Sattu Mix Premium', 'Pure roasted gram flour, finely milled. The traditional energy drink of Bihar. Great for digestion and cooling the body. Shelf life: 6 months.', '100% Pure Sattu, Gluten-Free')">
-                <h3 class="product-title">thekua double pack</h3>
+            <div class="product-card reveal">
+                <img src="https://i.ibb.co/j9FH8Bqp/thekua-double-pack.jpg" alt="Thekua Double Pack - Value pack for families" loading="lazy" onclick="openProductModal('Thekua Double Pack', 'Double pack of crispy traditional thekua, ideal for families and gifting. Shelf life: 3 weeks.', 'Made in Pure Ghee, No Refined Sugar, Value Pack')" role="button" tabindex="0">
+                <h3 class="product-title">Thekua Double Pack</h3>
                 <p class="product-price">₹549</p>
-                <span class="product-details-link" onclick="openProductModal('Sattu Mix Premium', 'Pure roasted gram flour, finely milled. The traditional energy drink of Bihar. Great for digestion and cooling the body. Shelf life: 6 months.', '100% Pure Sattu, Gluten-Free')">View Ingredients & Details</span>
-                <button class="add-to-cart-btn" onclick="addToCart('Sattu Mix Premium', 349)">Add to Cart</button>
+                <button class="product-details-link" onclick="openProductModal('Thekua Double Pack', 'Double pack of crispy traditional thekua, ideal for families and gifting. Shelf life: 3 weeks.', 'Made in Pure Ghee, No Refined Sugar, Value Pack')" aria-label="View ingredients and details for Thekua Double Pack">View Ingredients & Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Thekua Double Pack', 549, this)" aria-label="Add Thekua Double Pack to cart">
+                    <span class="btn-text">Add to Cart</span>
+                    <span class="btn-loader" style="display: none;">⏳</span>
+                </button>
             </div>
-            <div class="product-card">
-                <img src="https://ibb.co/gMFVXv0M"><img src="https://ibb.co/JF0Zcg6F"><img src="https://i.ibb.co/WpqCHj8p/maha-combo-pack.jpg" alt="maha-combo-pack" onclick="openProductModal('Traditional Thekua (500g)', 'The iconic sweet of Chhath Puja. Made with whole wheat flour, jaggery (gud), pure desi ghee, and fennel seeds. Baked to a perfect crisp. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee')">
-                <h3 class="product-title">Maha Combopack Thekua (750g)</h3>
+            <div class="product-card reveal">
+                <img src="https://i.ibb.co/WpqCHj8p/maha-combo-pack.jpg" alt="Maha Combo Pack Thekua - Bestseller combo pack" loading="lazy" onclick="openProductModal('Maha Combo Pack Thekua (750g)', 'A complete celebration combo with premium thekua selection for family snacking and festive moments. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee, Bestseller')" role="button" tabindex="0">
+                <h3 class="product-title">Maha Combo Pack Thekua (750g)</h3>
                 <p class="product-price">₹649</p>
-                <span class="product-details-link" onclick="openProductModal('Traditional Thekua (500g)', 'The iconic sweet of Chhath Puja. Made with whole wheat flour, jaggery (gud), pure desi ghee, and fennel seeds. Baked to a perfect crisp. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee')">View Ingredients & Details</span>
-                <button class="add-to-cart-btn" onclick="addToCart('Traditional Thekua (500g)', 399)">Add to Cart</button>
+                <button class="product-details-link" onclick="openProductModal('Maha Combo Pack Thekua (750g)', 'A complete celebration combo with premium thekua selection for family snacking and festive moments. Shelf life: 3 weeks.', 'No Refined Sugar, Made in Pure Ghee, Bestseller')" aria-label="View ingredients and details for Maha Combo Pack">View Ingredients & Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Maha Combo Pack Thekua (750g)', 649, this)" aria-label="Add Maha Combo Pack to cart">
+                    <span class="btn-text">Add to Cart</span>
+                    <span class="btn-loader" style="display: none;">⏳</span>
+                </button>
             </div>
         </div>
     </section>
 
     <section class="section-padding bg-secondary" id="story">
-        <h2 class="section-title">Bihar ki dhrohar</h2>
+        <h2 class="section-title reveal">Bihar ki dhrohar</h2>
         <div class="story-container">
-            <div class="story-box">
+            <div class="story-box reveal">
                 <h3>Taste of Tradition</h3>
                 <br>
                 <p>Bringing the authentic and forgotten flavors of traditional Bihar straight to your doorstep. We use pure ingredients, traditional recipes, and manufacture with deep love and hygiene. Every bite takes you on a nostalgic journey back to your roots.</p>
@@ -358,7 +113,7 @@
                     <li>✔ Hygienic Packaging</li>
                 </ul>
             </div>
-            <div class="story-box" style="border-color: var(--accent-gold);">
+            <div class="story-box reveal" style="border-color: var(--accent-gold); transition-delay: 0.2s;">
                 <h3>A Note from the Founder</h3>
                 <br>
                 <p><em>"I started Deshibyte because I realized our rich, native Bihari snacks were getting lost in a world of highly processed junk food. I wanted people everywhere to experience the exact same pure Sattu and crunchy Thekua I grew up eating at my grandmother's house. Deshibyte isn't just a business; it's an effort to preserve our heritage on a plate."</em></p>
@@ -367,12 +122,12 @@
     </section>
 
     <section class="section-padding bg-primary" id="reviews">
-        <h2 class="section-title">What Our Family Says</h2>
+        <h2 class="section-title reveal">What Our Family Says</h2>
         
-        <div class="average-rating" id="averageRatingDisplay">
+        <div class="average-rating reveal" id="averageRatingDisplay">
             </div>
 
-        <div class="carousel-container" id="testimonialCarousel">
+        <div class="carousel-container reveal" id="testimonialCarousel">
             <div class="testimonial-card">
                 <p>"The Thekua tastes exactly like the ones made during Chhath Puja. Pure ghee flavor and the perfect crunch. Highly recommended!"</p>
                 <span class="testimonial-author">- Rahul S., Mumbai</span>
@@ -390,7 +145,7 @@
             </div>
         </div>
 
-        <div class="feedback-form-container">
+        <div class="feedback-form-container reveal">
             <h3 style="color: var(--accent-gold); margin-bottom: 15px;">Leave a Review</h3>
             <form id="feedbackForm" onsubmit="submitFeedback(event)">
                 <input type="text" id="fbName" placeholder="Your Name & City (e.g., Rohan, Patna)" required>
@@ -405,11 +160,11 @@
         </div>
     </section>
 
-    <footer id="footer">
+    <footer id="footer" class="reveal">
         <div class="footer-col" style="flex: 2; min-width: 250px;">
-            <img src="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg" alt="Deshibyte Logo" style="height: 60px; border-radius:50%; margin-bottom:10px;">
+            <img src="https://i.ibb.co/mrFWTXP3/logo-Deshibyte-by-DGR-2.jpg" alt="Deshibyte Logo" loading="lazy" style="height: 60px; border-radius:50%; margin-bottom:15px; border: 2px solid var(--accent-gold);">
             <h3 style="margin-bottom: 5px;">Deshibyte by DGR</h3>
-            <p style="font-style: italic;">Bihar ki dhrohar</p>
+            <p style="font-style: italic; color: #aaa;">Bihar ki dhrohar</p>
             
             <div class="fssai-badge">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/FSSAI_logo.svg" alt="FSSAI" style="height: 25px; background: white; padding: 2px; border-radius: 3px; vertical-align: middle; margin-right: 10px;">
@@ -433,13 +188,21 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/919310404279" class="whatsapp-float" target="_blank">
-        💬 Chat / Support
+    <a href="https://wa.me/919310404279" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+        💬 <span>Chat / Support</span>
     </a>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+    </div>
 
     <div class="modal-overlay" id="cartModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
+            <button class="close-modal" onclick="closeModal('cartModal')" aria-label="Close cart modal">&times;</button>
             <h2 style="color: var(--text-dark); border-bottom: 2px solid var(--accent-gold); padding-bottom: 10px;">Your Cart</h2>
             
             <div id="cartItemsContainer" style="margin: 20px 0;">
@@ -451,24 +214,34 @@
                 <div class="cart-summary-line"><span>Shipping:</span> <span>₹<span id="cartShipping">0</span></span></div>
                 <div class="cart-summary-line"><span>GST (5%):</span> <span>₹<span id="cartGst">0</span></span></div>
                 <div class="cart-summary-total"><span>Final Payable:</span> <span>₹<span id="cartFinalTotal">0</span></span></div>
+                <p id="freeShippingMsg" style="color: var(--success-green); font-size: 0.85rem; text-align: right; margin: 10px 0 20px; font-weight: bold;"></p>
+                <button type="button" class="checkout-btn" id="proceedToCheckoutBtn" onclick="showCheckoutForm()">Proceed to Checkout</button>
             </div>
-            
-            <p id="freeShippingMsg" style="color: var(--success-green); font-size: 0.85rem; text-align: right; margin: 10px 0 20px; font-weight: bold;"></p>
 
-            <form class="checkout-form" id="orderForm" onsubmit="submitOrder(event)">
+            <form class="checkout-form" id="orderForm" onsubmit="submitOrder(event)" style="display: none; margin-top: 20px;">
+                <h3 style="margin-bottom: 10px; color: var(--primary-bg);">Delivery Details</h3>
                 <input type="text" id="botCheck" class="honeypot" tabindex="-1" autocomplete="off">
-                
                 <input type="text" id="customerName" placeholder="Full Name" required>
                 <input type="tel" id="customerPhone" placeholder="Phone Number (10 Digits)" pattern="[0-9]{10}" title="Enter a valid 10-digit mobile number" required>
                 <textarea id="customerAddress" rows="3" placeholder="Complete Delivery Address with Pincode" required></textarea>
-                <button type="submit" class="checkout-btn">Confirm Order & Download Invoice</button>
+                
+                <h3 style="margin: 15px 0 10px; color: var(--primary-bg);">Payment Method</h3>
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <label style="display: block; margin-bottom: 5px;"><input type="radio" name="paymentMethod" value="cod" checked> Cash on Delivery (COD)</label>
+                    <label style="display: block; margin-bottom: 5px;"><input type="radio" name="paymentMethod" value="upi"> UPI (Pay via WhatsApp)</label>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="checkout-btn" style="background: #ccc; color: #333;" onclick="hideCheckoutForm()">Back to Cart</button>
+                    <button type="submit" class="checkout-btn" style="flex: 2;">Confirm Order & Get Invoice</button>
+                </div>
             </form>
         </div>
     </div>
 
     <div class="modal-overlay" id="productModal">
         <div class="modal-content" style="text-align: center;">
-            <span class="close-modal" onclick="closeModal('productModal')">&times;</span>
+            <button class="close-modal" onclick="closeModal('productModal')" aria-label="Close product details modal">&times;</button>
             <h2 id="modalProductTitle" style="color: var(--text-dark); margin-bottom: 15px;">Product Name</h2>
             <p id="modalProductDesc" style="color: #444; margin-bottom: 20px;">Description goes here.</p>
             <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin-bottom: 20px;">
@@ -479,296 +252,6 @@
         </div>
     </div>
 
-    <script>
-        /* --- 1. DYNAMIC RATING & FEEDBACK SYSTEM --- */
-        let ratings = [5, 5, 4]; // Matches the initial static reviews
-
-        function updateAverageRating() {
-            const sum = ratings.reduce((a, b) => a + b, 0);
-            const avg = (sum / ratings.length).toFixed(1);
-            document.getElementById('averageRatingDisplay').innerText = `⭐ ${avg} / 5 (${ratings.length} Reviews)`;
-        }
-
-        function submitFeedback(event) {
-            event.preventDefault();
-            const name = document.getElementById('fbName').value.trim();
-            const rating = parseInt(document.getElementById('fbRating').value);
-            const review = document.getElementById('fbReview').value.trim();
-
-            if (!name || !review) {
-                alert("Please fill out the form properly without empty spaces.");
-                return;
-            }
-
-            // Update data
-            ratings.push(rating);
-            updateAverageRating();
-            let stars = "⭐".repeat(rating);
-
-            // Inject into UI
-            const carousel = document.getElementById('testimonialCarousel');
-            const newReview = document.createElement('div');
-            newReview.className = 'testimonial-card';
-            newReview.innerHTML = `
-                <p>"${review}"</p>
-                <span class="testimonial-author">- ${name}</span>
-                <div style="color: gold; margin-top: 5px;">${stars}</div>
-            `;
-            carousel.insertBefore(newReview, carousel.firstChild);
-
-            alert("Thank you! Your review has been added to our family wall.");
-            document.getElementById('feedbackForm').reset();
-        }
-
-        // Utilities
-        function scrollToElement(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
-        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
-
-        function openProductModal(title, desc, highlights) {
-            document.getElementById('modalProductTitle').innerText = title;
-            document.getElementById('modalProductDesc').innerText = desc;
-            document.getElementById('modalProductHighlights').innerText = highlights;
-            openModal('productModal');
-        }
-
-        // Close modals if clicked outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = "none";
-            }
-        }
-
-        /* --- 2. ADVANCED CART LOGIC (SHIPPING & GST) --- */
-        let cart = [];
-        let currentSubtotal = 0; let currentShipping = 0;
-        let currentGst = 0; let currentTotal = 0;
-
-        function addToCart(productName, price) {
-            let existingItem = cart.find(item => item.name === productName);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name: productName, price: price, quantity: 1 });
-            }
-            
-            updateCartUI();
-            
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "Added!";
-            btn.style.background = "var(--success-green)";
-            btn.style.color = "white";
-            btn.style.borderColor = "var(--success-green)";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "transparent";
-                btn.style.color = "var(--accent-gold)";
-                btn.style.borderColor = "var(--accent-gold)";
-            }, 1000);
-        }
-
-        function changeQuantity(index, delta) {
-            cart[index].quantity += delta;
-            if (cart[index].quantity <= 0) {
-                removeItem(index);
-            } else {
-                updateCartUI();
-            }
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            let totalItems = 0; currentSubtotal = 0;
-            cart.forEach(item => {
-                totalItems += item.quantity;
-                currentSubtotal += (item.price * item.quantity);
-            });
-
-            document.getElementById('cart-count-badge').innerText = totalItems;
-
-            const container = document.getElementById('cartItemsContainer');
-            const summary = document.getElementById('cartSummary');
-            
-            if (cart.length === 0) {
-                container.innerHTML = '<p>Your cart is empty.</p>';
-                summary.style.display = 'none';
-                document.getElementById('freeShippingMsg').innerText = '';
-            } else {
-                container.innerHTML = '';
-                cart.forEach((item, index) => {
-                    container.innerHTML += `
-                        <div class="cart-item">
-                            <div class="cart-item-info">
-                                <div class="cart-item-title">${item.name}</div>
-                                <div class="cart-item-price">₹${item.price} each</div>
-                                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-                            </div>
-                            <div class="cart-controls">
-                                <button class="qty-btn" type="button" onclick="changeQuantity(${index}, -1)">-</button>
-                                <span>${item.quantity}</span>
-                                <button class="qty-btn" type="button" onclick="changeQuantity(${index}, 1)">+</button>
-                            </div>
-                            <div style="font-weight: bold; width: 60px; text-align: right;">
-                                ₹${item.price * item.quantity}
-                            </div>
-                        </div>
-                    `;
-                });
-
-                // Calculate Finances
-                currentShipping = currentSubtotal < 499 ? 50 : 0;
-                currentGst = parseFloat((currentSubtotal * 0.05).toFixed(2));
-                currentTotal = Math.round(currentSubtotal + currentShipping + currentGst);
-
-                // Update DOM
-                document.getElementById('cartSubtotal').innerText = currentSubtotal;
-                document.getElementById('cartShipping').innerText = currentShipping;
-                document.getElementById('cartGst').innerText = currentGst;
-                document.getElementById('cartFinalTotal').innerText = currentTotal;
-                summary.style.display = 'block';
-
-                // Shipping Tracker
-                let shipMsg = document.getElementById('freeShippingMsg');
-                if(currentSubtotal < 499) {
-                    let needed = 499 - currentSubtotal;
-                    shipMsg.innerText = `Add ₹${needed} more for FREE Shipping!`;
-                    shipMsg.style.color = '#e67e22'; // Orange warning
-                } else {
-                    shipMsg.innerText = `🎉 You've unlocked FREE Shipping!`;
-                    shipMsg.style.color = 'var(--success-green)';
-                }
-            }
-        }
-
-        /* --- 3. INVOICE GENERATOR (jsPDF) --- */
-        function generatePDF(details) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Header
-            doc.setFontSize(22); doc.setTextColor(59, 9, 24);
-            doc.text("Deshibyte by DGR", 20, 20);
-            
-            doc.setFontSize(10); doc.setTextColor(100);
-            doc.text("TAX INVOICE", 170, 20);
-            doc.text("Bihar ki dhrohar | FSSAI: 23325060003669", 20, 28);
-            doc.line(20, 35, 190, 35);
-
-            // Customer details
-            doc.setFontSize(12); doc.setTextColor(0);
-            doc.text("Billed To:", 20, 45);
-            doc.setFontSize(10);
-            doc.text(`Name: ${details.name}`, 20, 52);
-            doc.text(`Phone: ${details.phone}`, 20, 58);
-            doc.text(doc.splitTextToSize(`Address: ${details.address}`, 80), 20, 64);
-            doc.line(20, 80, 190, 80);
-
-            // Table Header
-            doc.setFont("helvetica", "bold");
-            doc.text("Item", 20, 90); doc.text("Qty", 120, 90); doc.text("Price", 140, 90); doc.text("Total", 170, 90);
-            doc.line(20, 95, 190, 95);
-
-            // Items
-            doc.setFont("helvetica", "normal");
-            let y = 105;
-            cart.forEach((item, i) => {
-                doc.text(`${i + 1}. ${item.name}`, 20, y);
-                doc.text(`${item.quantity}`, 122, y);
-                doc.text(`Rs. ${item.price}`, 140, y);
-                doc.text(`Rs. ${item.price * item.quantity}`, 170, y);
-                y += 10;
-            });
-
-            // Totals
-            doc.line(20, y, 190, y); y += 10;
-            doc.text(`Subtotal:`, 140, y); doc.text(`Rs. ${currentSubtotal}`, 170, y); y += 8;
-            doc.text(`Shipping:`, 140, y); doc.text(`Rs. ${currentShipping}`, 170, y); y += 8;
-            doc.text(`GST (5%):`, 140, y); doc.text(`Rs. ${currentGst}`, 170, y); y += 10;
-            
-            doc.setFont("helvetica", "bold");
-            doc.text(`Final Payable:`, 140, y); doc.text(`Rs. ${currentTotal}`, 170, y);
-            
-            doc.setFont("helvetica", "italic"); doc.setFontSize(10);
-            doc.text("Thank you for choosing authentic taste! - Deshibyte", 105, 280, null, null, "center");
-
-            doc.save(`Deshibyte_Invoice_${details.phone}.pdf`);
-        }
-
-        /* --- 4. SECURE CHECKOUT --- */
-        function submitOrder(event) {
-            event.preventDefault();
-            
-            // Honeypot Bot Trap
-            if(document.getElementById('botCheck').value !== "") return; 
-
-            if(cart.length === 0) {
-                alert("Please add items to your cart first."); return;
-            }
-
-            const name = document.getElementById('customerName').value.trim();
-            const phone = document.getElementById('customerPhone').value.trim();
-            const address = document.getElementById('customerAddress').value.trim();
-
-            if(!name || !phone || !address) {
-                alert("No empty spaces allowed. Please fill all fields."); return;
-            }
-
-            const phoneRegex = /^[0-9]{10}$/;
-            if(!phoneRegex.test(phone)) {
-                alert("Please enter a valid 10-digit mobile number."); return;
-            }
-
-            // Generate the PDF
-            generatePDF({ name, phone, address });
-
-            // Format Professional Invoice for WhatsApp
-            let message = `*🧾 TAX INVOICE - DESHIBYTE BY DGR*%0A`;
-            message += `_Bihar ki dhrohar_%0A`;
-            message += `-----------------------------------%0A%0A`;
-            message += `*👤 CUSTOMER DETAILS:*%0A`;
-            message += `*Name:* ${name}%0A`;
-            message += `*Phone:* ${phone}%0A`;
-            message += `*Address:* ${address}%0A%0A`;
-            message += `*🛒 ORDER:*%0A`;
-            cart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}*%0A   Qty: ${item.quantity} x ₹${item.price} = ₹${item.price * item.quantity}%0A`;
-            });
-            message += `%0A-----------------------------------%0A`;
-            message += `Subtotal: ₹${currentSubtotal}%0A`;
-            message += `Shipping: ₹${currentShipping}%0A`;
-            message += `GST (5%): ₹${currentGst}%0A`;
-            message += `-----------------------------------%0A`;
-            message += `*💰 FINAL PAYABLE: ₹${currentTotal}*%0A`;
-            message += `-----------------------------------%0A`;
-
-            // Open WhatsApp
-            window.open(`https://wa.me/919310404279?text=${message}`, '_blank');
-            
-            // Reset
-            cart = [];
-            updateCartUI();
-            closeModal('cartModal');
-            document.getElementById('orderForm').reset();
-            alert("Order Confirmed! Your PDF invoice is downloading and WhatsApp is opening.");
-        }
-
-        // Initialize Average Rating on Page Load
-        updateAverageRating();
-
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
